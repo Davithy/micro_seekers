@@ -306,10 +306,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d79d1815e7d514798f8d5c6e41fe7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  mapBoundsMinX: -100
-  mapBoundsMaxX: 200
-  mapBoundsMinZ: -100
-  mapBoundsMaxZ: 200
+  mapBoundsMinX: -50
+  mapBoundsMaxX: 0
+  mapBoundsMinZ: -50
+  mapBoundsMaxZ: 0
+  camSnapBackDuration: 0.75
   minZoom: 1
   maxZoom: 20
   smoothSpeed: 10.6

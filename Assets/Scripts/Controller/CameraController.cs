@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Reflection.Metadata;
+using DG.Tweening;
 using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Controller
         [SerializeField] private float mapBoundsMaxX = 0f;
         [SerializeField] private float mapBoundsMinZ = -1f;
         [SerializeField] private float mapBoundsMaxZ = 0f;
+        [SerializeField] private float camSnapBackDuration = 0.75f;
 
         [Header("Camera Zoom")]
         [SerializeField, UnityEngine.RangeAttribute(1f, 10f)]
@@ -95,7 +97,7 @@ namespace Controller
             camPos.x = Mathf.Clamp(camPos.x, mapBoundsMinX, mapBoundsMaxX);
             camPos.z = Mathf.Clamp(camPos.z, mapBoundsMinZ, mapBoundsMaxZ);
             camPos.y = camOffset.y;
-            transform.position = camPos;
+            transform.DOMove(camPos,camSnapBackDuration).SetEase(Ease.OutQuart);
         }
 
         private void HandleZoom(float zoomInput)
