@@ -87,7 +87,7 @@ namespace Controller
         private void HandlePanMove(UnityEngine.Vector2 delta)
         {
             UnityEngine.Vector3 direction = touchStart - cam.ScreenToWorldPoint(delta);
-            direction.y = 0;
+            // direction.y = 0;
             transform.position+=direction;
         }
 
