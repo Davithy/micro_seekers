@@ -1,115 +1,50 @@
-using System.Numerics;
-using System.Reflection.Metadata;
-using DG.Tweening;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Controller
 {
     public class CameraController : MonoBehaviour
     {
-        [Header("Camera Map Bounds")]
+        [Header("Camera Bounds")]
         [SerializeField] private float mapBoundsMinX = -1f;
         [SerializeField] private float mapBoundsMaxX = 0f;
         [SerializeField] private float mapBoundsMinZ = -1f;
         [SerializeField] private float mapBoundsMaxZ = 0f;
-        [SerializeField] private float camSnapBackDuration = 0.75f;
 
-        [Header("Camera Zoom")]
-        [SerializeField, UnityEngine.RangeAttribute(1f, 10f)]
-        private float minZoom = 1f;
+        [Header("Camera Movement")]
+        [SerializeField] private float moveSpeed = 5f;
+        [SerializeField] private float smoothSpeed = 20f;
 
-        [SerializeField, UnityEngine.RangeAttribute(1f,30f)] private float maxZoom = 5f; 
-        [SerializeField, UnityEngine.RangeAttribute(1f,50f)] private float smoothSpeed = 20f; 
-        [SerializeField, UnityEngine.RangeAttribute(1f,10f)] private float zoomStrength = 5f; 
+        [Header("Camera Input")]
+        [SerializeField] private InputActionReference moveAction;
 
+        private Vector3 camPos;
 
-        private Camera cam;
-        private UnityEngine.Vector3 touchStart;
-        private float targetZoom;
-        private float zoomVelocity;
-        private UnityEngine.Vector3 camOffset;
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
         {
-            cam = GetComponent<Camera>();
-            targetZoom = cam.orthographicSize;
-            camOffset = cam.transform.position;
+            camPos = transform.localPosition;
         }
 
-        // Update is called once per frame
+        private void OnEnable()
+        {
+            moveAction.action.Enable();
+        }
+
+        private void OnDisable()
+        {
+            moveAction.action.Disable();
+        }
+
         private void Update()
         {
-            switch (Application.platform)
-            {
-                case RuntimePlatform.Android:
-                    HandleMobileInput();
-                    break;
-                case RuntimePlatform.WindowsEditor:
-                    HandleDevInput();
-                    break;
-            }
-        }
+            Vector2 move = moveAction.action.ReadValue<Vector2>();
 
-        private void HandleMobileInput()
-        {
-            
-        }
+            camPos +=  Time.deltaTime * moveSpeed * new Vector3(move.x, 0f, move.y);
 
-        private void HandleDevInput()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                HandlePanStart(Input.mousePosition);
-            }
-            
-            if (Input.GetMouseButton(0))
-            {
-                HandlePanMove(Input.mousePosition);
-            }
-            
-            if (Input.GetMouseButtonUp(0))
-            {
-                HandlePanEnd();
-            }
-            
-            HandleZoom(Input.GetAxis("Mouse ScrollWheel"));
-
-        }
-
-        private void HandlePanStart(UnityEngine.Vector2 pos)
-        {
-            touchStart = cam.ScreenToWorldPoint(pos);
-        }
-        
-        private void HandlePanMove(UnityEngine.Vector2 delta)
-        {
-            UnityEngine.Vector3 direction = touchStart - cam.ScreenToWorldPoint(delta);
-            // direction.y = 0;
-            transform.position+=direction;
-        }
-
-        private void HandlePanEnd()
-        {
-            UnityEngine.Vector3 camPos = cam.transform.position;
             camPos.x = Mathf.Clamp(camPos.x, mapBoundsMinX, mapBoundsMaxX);
             camPos.z = Mathf.Clamp(camPos.z, mapBoundsMinZ, mapBoundsMaxZ);
-            camPos.y = camOffset.y;
-            transform.DOMove(camPos,camSnapBackDuration).SetEase(Ease.OutQuart);
-        }
 
-        private void HandleZoom(float zoomInput)
-        {
-            if (zoomInput != 0)
-            {
-                targetZoom -= zoomInput * zoomStrength;
-                targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
-            }
-
-            cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, targetZoom, ref zoomVelocity, smoothSpeed * Time.deltaTime);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, camPos, smoothSpeed * Time.deltaTime);
         }
     }
-
 }
