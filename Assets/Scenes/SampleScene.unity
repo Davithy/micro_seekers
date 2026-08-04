@@ -711,7 +711,7 @@ MonoBehaviour:
   mapBoundsMaxX: 30
   mapBoundsMinZ: -80
   mapBoundsMaxZ: 0
-  moveSpeed: 15
+  moveSpeed: 75
   smoothSpeed: 10
   moveAction: {fileID: -7419201445059727163, guid: 8fd60983fd1b73c4c8ff655a3edee828, type: 3}
 --- !u!1001 &403570613
@@ -3491,7 +3491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8859007d599ea439c8c7ac7dd877a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  gazeTimer: 2
+  gazeTimer: 1.5
   moveAction: {fileID: -7419201445059727163, guid: 8fd60983fd1b73c4c8ff655a3edee828, type: 3}
   rotateAction: {fileID: 2367091379387212892, guid: 8fd60983fd1b73c4c8ff655a3edee828, type: 3}
 --- !u!1001 &1697281976
@@ -3846,8 +3846,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 548.4, y: 226.8}
-  m_SizeDelta: {x: 188, y: 95.7}
+  m_AnchoredPosition: {x: 1018.5, y: 226.8}
+  m_SizeDelta: {x: 351.7, y: 95.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1863385452
 MonoBehaviour:
@@ -3914,7 +3914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   platform: {fileID: 271210223}
-  rotateSpeed: 60
+  rotateSpeed: 500
   smoothSpeed: 20
   rotateAction: {fileID: 2367091379387212892, guid: 8fd60983fd1b73c4c8ff655a3edee828, type: 3}
 --- !u!4 &1889678254

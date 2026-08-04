@@ -10,7 +10,7 @@ namespace Controller
 
 
         [Header("Rotation")]
-        [SerializeField, RangeAttribute(1f, 200f)] private float rotateSpeed = 60f;
+        [SerializeField, RangeAttribute(1f, 500f)] private float rotateSpeed = 250f;
         [SerializeField, RangeAttribute(1f, 200f)] private float smoothSpeed = 20f;
         [SerializeField] private InputActionReference rotateAction;
 
