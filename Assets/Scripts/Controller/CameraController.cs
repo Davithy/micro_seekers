@@ -39,7 +39,7 @@ namespace Controller
         {
             Vector2 move = moveAction.action.ReadValue<Vector2>();
 
-            camPos +=  Time.deltaTime * moveSpeed * new Vector3(move.x, 0f, move.y);
+            camPos +=  Time.deltaTime * moveSpeed * new Vector3(move.x, 0f, move.y * 1.5f);
 
             camPos.x = Mathf.Clamp(camPos.x, mapBoundsMinX, mapBoundsMaxX);
             camPos.z = Mathf.Clamp(camPos.z, mapBoundsMinZ, mapBoundsMaxZ);
