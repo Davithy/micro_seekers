@@ -7,13 +7,24 @@
             "id": "7273f997-f58e-4222-abe2-7cbceb0a694f",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Moving",
                     "type": "Value",
                     "id": "d31e6a21-0e48-4023-815a-402c25493495",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "b9fd50e2-2db7-4fa3-8b87-cfc1b937ccc0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -24,7 +35,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Moving",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -35,7 +46,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -46,7 +57,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -57,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -68,9 +79,31 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Moving",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "98082a2b-2dc0-4405-bcbd-e72acb3c0df0",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa178948-5956-43cd-b46c-f1e7f656c629",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -79,13 +112,14 @@
             "id": "e27c0b38-b961-4b63-8539-830c94e9b206",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Rotating",
                     "type": "Value",
                     "id": "511f4fb5-29e6-4021-a38d-60faa6b8bfdc",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": true,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -96,7 +130,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Rotating",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -105,9 +139,9 @@
                     "id": "2c482d54-6aba-41eb-b0de-dd90355add16",
                     "path": "<Keyboard>/z",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Scale(factor=3)",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Rotating",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -116,9 +150,126 @@
                     "id": "554c8b08-45ff-48dc-8238-d3d867b0476c",
                     "path": "<Keyboard>/c",
                     "interactions": "",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "Rotating",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Reset",
+            "id": "12cea444-0de8-4e13-8395-99a9aec34185",
+            "actions": [
+                {
+                    "name": "reset",
+                    "type": "Button",
+                    "id": "8b5d8637-35ee-4008-a4bd-3a72af4bb89a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Button With One Modifier",
+                    "id": "e85386de-572b-4329-b2d5-516cb833f30a",
+                    "path": "ButtonWithOneModifier(modifiersOrder=2)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "reset",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "f3f828e8-98ae-4275-9108-8b5be8340121",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "reset",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Button",
+                    "id": "3742631b-8b4f-40c7-8904-bf238b15d80f",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "reset",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "af18ba0d-89e9-45bd-8cfd-4760395c064a",
+                    "path": "ButtonWithOneModifier(modifiersOrder=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "reset",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "aa4ed1d9-0fb5-43ea-94bb-6fa300df0f49",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "reset",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Button",
+                    "id": "3f28fd6b-fb6f-49e9-bb14-4f2421924edb",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "reset",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Button With One Modifier",
+                    "id": "f6d7b3b7-c8c8-4a8b-9837-63cd98ebe1ae",
+                    "path": "ButtonWithOneModifier(modifiersOrder=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "reset",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "a5c59ea7-e73f-4002-970a-7e9ae2700fc1",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "reset",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Button",
+                    "id": "f4fe580a-2477-40f3-9741-013285c71ce8",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "reset",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
