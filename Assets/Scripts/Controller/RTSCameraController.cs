@@ -39,6 +39,7 @@ namespace Controller
         [SerializeField] Transform cameraTarget;
 
         [Header("Reset")]
+        [SerializeField] private WinManager winManager;
         private InputAction resetAction;
         private Vector3 defaultTargetPosition;
         private float defaultHorizontal;
@@ -69,6 +70,12 @@ namespace Controller
 
         private void Update()
         {
+            if (winManager != null && winManager.HasWon)
+            {
+                ResetPosition();
+                return;
+            }
+
             HandleInput();
             UpdateMovement();
             ResetPosition();
@@ -159,18 +166,23 @@ namespace Controller
 
         void ResetPosition()
         {
-            if (resetAction.WasPressedThisFrame())
+            if (!resetAction.WasPressedThisFrame()) return;
+
+            if (winManager != null && winManager.HasWon)
             {
-                cameraTarget.position = defaultTargetPosition;
-
-                currentVelocity = Vector3.zero;
-                decelStartVelocity = Vector3.zero;
-                decelTimer = 0f;
-
-                orbitalFollow.HorizontalAxis.Value = defaultHorizontal;
-                orbitalFollow.VerticalAxis.Value = defaultVertical;
-                orbitalFollow.RadialAxis.Value = defaultRadial;
+                winManager.RestartGame();
+                return;
             }
+
+            cameraTarget.position = defaultTargetPosition;
+
+            currentVelocity = Vector3.zero;
+            decelStartVelocity = Vector3.zero;
+            decelTimer = 0f;
+
+            orbitalFollow.HorizontalAxis.Value = defaultHorizontal;
+            orbitalFollow.VerticalAxis.Value = defaultVertical;
+            orbitalFollow.RadialAxis.Value = defaultRadial;
         }
     }
 }

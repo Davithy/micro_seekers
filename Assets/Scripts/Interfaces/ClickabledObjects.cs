@@ -8,18 +8,15 @@ public class ClickabledObjects : MonoBehaviour, iClickable
     [SerializeField] private Material ogMat;
     [SerializeField] private Material clickedMat;
 
-    private bool isClicked;
+    public WinManager winManager;
+
+    private bool isClicked = false;
 
     public void OnClick()
     {
-        isClicked = !isClicked;
-        if (isClicked == true)
-        {
-            obj.material = clickedMat;
-        }
-        else
-        {
-            obj.material = ogMat;
-        }
+        if (isClicked) return;
+        isClicked = true;
+        obj.material = clickedMat;
+        winManager.FindItem();
     }
 }
