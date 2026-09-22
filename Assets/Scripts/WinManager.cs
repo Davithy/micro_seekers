@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,7 +7,9 @@ public class WinManager : MonoBehaviour
 {
     public int totalItems = 3;
     private int foundItems = 0;
-    public GameObject winText;
+    public GameObject winScreen;
+    public GameObject restartText;
+    public GameObject disconnectText;
 
     public bool HasWon { get; private set; } = false;
 
@@ -24,12 +27,28 @@ public class WinManager : MonoBehaviour
     public void WinGame()
     {
         Debug.Log("Winner");
-        HasWon = true;
-        winText.gameObject.SetActive(true);
+        StartCoroutine(WinGameCoroutine());
     }
 
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    IEnumerator WinGameCoroutine()
+    {
+        
+        yield return new WaitForSeconds(1);
+
+        HasWon = true;
+        winScreen.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+        disconnectText.SetActive(true);
+
+        yield return new WaitForSeconds(3);
+        disconnectText.SetActive(false);
+        restartText.SetActive(true);
+
     }
 }

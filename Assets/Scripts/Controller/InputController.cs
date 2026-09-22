@@ -1,6 +1,7 @@
 using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Controller
 {
@@ -13,11 +14,16 @@ namespace Controller
         [SerializeField] private InputActionReference moveAction;
         [SerializeField] private InputActionReference rotateAction;
 
+        [Header("Gaze UI")]
+        [SerializeField] private Image loadingCircle;
+        [SerializeField] private Color defaultColor = Color.white;
+        
+
         private Camera camera;
         private float idleTimer;
         private bool hasTriggered;
         private bool isIdle;
-        
+
         private void Awake()
         {
             camera = Camera.main;
@@ -35,11 +41,14 @@ namespace Controller
             {
                 idleTimer = 0f;
                 hasTriggered = false;
+                SetFillColor(defaultColor);
+                loadingCircle.fillAmount = 0f;
                 return;
             }
 
             idleTimer += Time.deltaTime;
-
+            UpdateFillUI();
+            
             if (idleTimer >= gazeTimer && !hasTriggered)
             {
                 hasTriggered = true;
@@ -50,15 +59,40 @@ namespace Controller
         private void RayCaster()
         {
             Ray ray = new Ray(camera.transform.position, camera.transform.forward);
-            if (!Physics.Raycast(ray, out RaycastHit hitData)) return;
-            HandleClickable(hitData);
+
+            if (!Physics.Raycast(ray, out RaycastHit hitData) || !hitData.transform.TryGetComponent<iClickable>(out iClickable clickable)) 
+            {
+                SetFillColor(Color.red);
+                return;
+            }
+
+            clickable.OnClick();
         }
 
-        private void HandleClickable(RaycastHit hitData)
+        private void UpdateFillUI()
         {
-            if (hitData.transform.TryGetComponent<iClickable>(out iClickable clickable))
+            if (loadingCircle == null) return;
+
+            float loadingWarmup = gazeTimer * 0.5f;
+            float fill;
+
+            if (idleTimer < loadingWarmup)
             {
-                clickable.OnClick();   
+                fill = 0f;
+            }
+            else
+            {
+                fill = (idleTimer - loadingWarmup) / (gazeTimer - loadingWarmup);
+            }
+
+            loadingCircle.fillAmount = Mathf.Clamp01(fill);
+        }
+
+        public void SetFillColor (Color color)
+        {
+            if (loadingCircle != null)
+            {
+                loadingCircle.color = color;
             }
         }
     }

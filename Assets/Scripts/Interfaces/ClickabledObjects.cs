@@ -1,12 +1,26 @@
+using System.Collections;
+using Controller;
 using Interfaces;
-using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class ClickabledObjects : MonoBehaviour, iClickable
 {
+    public MeshRenderer meshRenderer;
+    public VisualEffect VFXGraph;
+    public float dissolveRate = 0.0125f;
+    public float refreshRate = 0.025f;
+    private Material meshMaterials;
+
+    void Start()
+    {
+        if(meshRenderer != null)
+            meshMaterials = meshRenderer.material;
+    }
+
     [SerializeField] private Renderer obj;
     [SerializeField] private Material ogMat;
-    [SerializeField] private Material clickedMat;
+    [SerializeField] private Controller.InputController inputController;
 
     public WinManager winManager;
 
@@ -16,7 +30,26 @@ public class ClickabledObjects : MonoBehaviour, iClickable
     {
         if (isClicked) return;
         isClicked = true;
-        obj.material = clickedMat;
+
+        inputController.SetFillColor(Color.green);
+        StartCoroutine(DissolveCo());
         winManager.FindItem();
+    }
+
+    IEnumerator DissolveCo ()
+    {
+        if(VFXGraph != null)
+        {
+            VFXGraph.Play();
+        }
+
+        float counter = 0;
+
+        while(meshMaterials.GetFloat("_DissolveAmount") < 1)
+        {
+            counter += dissolveRate;
+            meshMaterials.SetFloat("_DissolveAmount", counter);
+            yield return new WaitForSeconds(refreshRate);
+        }
     }
 }
